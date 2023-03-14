@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
+
 const SessionScheme = new Schema(
   {
     username: {
@@ -11,12 +12,18 @@ const SessionScheme = new Schema(
       required: true,
     },
     role: {
+      type: String,
+    },
+    admin: {
       type: Boolean,
       default: false,
     },
     active: {
       type: String,
       default: "false",
+    },
+    starttime: {
+      type: Date,
     },
   },
   { collection: "sessions", timestamps: true }
