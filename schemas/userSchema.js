@@ -16,58 +16,15 @@ const User = new Schema(
       required: true,
     },
     admin: {
-      type: String,
-      default: "",
-    },
-    firstname: {
-      type: String,
-      default: "",
-    },
-    lastname: {
-      type: String,
-      default: "",
-    },
-    gender: {
-      type: String,
-      default: "",
-    },
-    dob: {
-      type: String,
-      default: "",
-    },
-    contact: {
-      type: String,
-      default: "",
-    },
-    address: {
-      type: String,
-      default: "",
-    },
-    registeredon: {
-      type: String,
-      default: "",
-    },
-    team: {
-      type: String,
-      default: "",
+      type: Boolean,
+      default: false,
+      required: true,
     },
     role: {
       type: String,
-      default: "",
-    },
-    deleted: {
-      type: String,
-      default: "false",
-    },
-    updatedby: {
-      type: String,
-      default: "",
-    },
-    deletedby: {
-      type: String,
-      default: "",
     },
   },
   { collection: "users", timestamps: true }
 );
+
 export default new mongoose.model("User", User);

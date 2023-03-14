@@ -10,8 +10,8 @@ connection.connectToDb((err) => {
 });
 
 router.post("/registration", async (req, res) => {
-  console.log("registration route called", req.body.email, req.body.password);
-  console.log(req.body);
+  //console.log("registration route called", req.body.email, req.body.password);
+  //console.log(req.body);
   let result = await _db
     .collection("users")
     .find({ email: req.body.email })
@@ -47,41 +47,39 @@ router.get("/roles", async (req, res) => {
   res.send(result[0].roles);
 });
 
-router.post("/user_login", async (req, res) => {
-  console.log("trying to login");
-  req.user = req.body;
-  let result = await _db
-    .collection("users")
-    .find({ username: req.body.username })
-    .toArray();
-  console.log(result.length, req.body.password, result[0].password);
-  let match = await comparePassword(req.body.password, result[0].password);
-  console.log("comparing passwords", match);
-  if (!match) {
-    res.status(200).json({ errno: 100 });
-  } else {
-    req.session.save();
-    console.log(req.session);
-    let session_data = {
-      username: req.body.username,
-      sessionid: req.sessionID,
-      active: "true",
-      starttime: Date(),
-    };
-    _db.collection("sessions").insertOne(session_data);
-    console.log(session_data);
-    res.status(200).json({
-      username: req.body.username,
-      sessionid: session_data.sessionid,
-      admin: result[0].admin,
-      role: result[0].role,
-      team: result[0].team,
-    });
-  }
-});
+// router.post("/user_login", async (req, res) => {
+//   //console.log("trying to login");
+//   req.user = req.body;
+//   let result = await _db
+//     .collection("users")
+//     .find({ username: req.body.username })
+//     .toArray();
+
+  
+
+//   if (!await bcrypt.compare(req.body.password, doc.password)) {
+//     res.status(200).json({ errno: 100 });
+//   } else {
+//     req.session.save();
+//     let session_data = {
+//       username: req.body.username,
+//       session_id: req.sessionID,
+//       active: "true",
+//       starttime: Date(),
+//     };
+//     _db.collection("sessions").insertOne(session_data);
+//     res.status(200).json({
+//       username: req.body.username,
+//       session_id: session_data.session_id,
+//       admin: result[0].admin,
+//       role: result[0].role,
+//       team: result[0].team,
+//     });
+//   }
+// });
 
 router.get("/display_all_emails", async (req, res) => {
-  console.log("displaying all emails");
+  //console.log("displaying all emails");
   let result = await _db.collection("users").find({}).toArray();
   var active;
   active = result.map((row) => {
@@ -92,7 +90,7 @@ router.get("/display_all_emails", async (req, res) => {
 });
 
 router.post("/forgot_password", async (req, res) => {
-  console.log("forgot password route called");
+  //console.log("forgot password route called");
   var myquery = { username: req.body.username, email: req.body.email };
   req.body.password = await hashPassword(req.body.password);
   const update = {
@@ -148,7 +146,7 @@ router.get("/display_all_users", async (req, res) => {
 
 router.get("/users/:username/", async (req, res) => {
   let username = req.params["username"];
-  console.log("/users/username called", username);
+  //console.log("/users/username called", username);
   let result = await _db
     .collection("users")
     .find({ username: username })
