@@ -129,8 +129,8 @@ app.post(
     req.body.password = await hashPassword(req.body.password);
     //console.log("hashed password", req.body.password);
     req.body.username = "";
-    req.deleted = "false";
-    req.admin = "false";
+    req.body.deleted = "false";
+    req.body.admin = "false";
     let result = _db.collection("users").insertOne(req.body);
     req.data = "successful";
     next();
