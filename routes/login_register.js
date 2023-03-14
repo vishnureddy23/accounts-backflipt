@@ -47,37 +47,6 @@ router.get("/roles", async (req, res) => {
   res.send(result[0].roles);
 });
 
-// router.post("/user_login", async (req, res) => {
-//   //console.log("trying to login");
-//   req.user = req.body;
-//   let result = await _db
-//     .collection("users")
-//     .find({ username: req.body.username })
-//     .toArray();
-
-  
-
-//   if (!await bcrypt.compare(req.body.password, doc.password)) {
-//     res.status(200).json({ errno: 100 });
-//   } else {
-//     req.session.save();
-//     let session_data = {
-//       username: req.body.username,
-//       session_id: req.sessionID,
-//       active: "true",
-//       starttime: Date(),
-//     };
-//     _db.collection("sessions").insertOne(session_data);
-//     res.status(200).json({
-//       username: req.body.username,
-//       session_id: session_data.session_id,
-//       admin: result[0].admin,
-//       role: result[0].role,
-//       team: result[0].team,
-//     });
-//   }
-// });
-
 router.get("/display_all_emails", async (req, res) => {
   //console.log("displaying all emails");
   let result = await _db.collection("users").find({}).toArray();
