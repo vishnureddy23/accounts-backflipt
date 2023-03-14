@@ -221,9 +221,20 @@
             if (res.data) {
               res.data.cookie = JSON.stringify(res.data.cookie);
               let queryString = new URLSearchParams(res?.data).toString();
+              const domains = {
+                expenses: "11",
+                inventory: "14",
+                todo: "43",
+                snacks: "18",
+                leave: "77",
+                helpdesk:"75",
+                "bug-hunter": "17",
+              };
               // //console.log(queryString);
               window.location.href =
-                "http://localhost:3000/" +
+                "http://192.168.1." +
+                domains[res.data.from] +
+                ":3000/" +
                 res.data.from +
                 `/authenticate?${queryString}`;
             } else {
