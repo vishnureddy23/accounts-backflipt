@@ -43,6 +43,10 @@ app.post("/user_login", async (req, res) => {
       if (err) {
         res.send(false);
       } else {
+        if (doc === null) {
+          res.send(false);
+          return;
+        }
         if (req.body.password === "") {
           res.send(false);
         } else {
@@ -52,13 +56,18 @@ app.post("/user_login", async (req, res) => {
               username: req.body.username,
               role: doc.role,
               admin: doc.admin,
-              from: req.body.from ? req.body.from : "accounts",
               active: "true",
               starttime: Date(),
             };
             const newSession = new SessionScheme(temp);
             newSession.save((err, newSes) => {
-              if (!err) res.status(200).send(temp);
+              if (!err)
+                res.status(200).send({
+                  ...temp,
+                  from: req.body.from ? req.body.from : "accounts",
+                  host: req.body.host,
+                  protocol: req.body.protocol,
+                });
               else res.status(500).send(false);
             });
           } else {
