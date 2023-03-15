@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import connection from "../modules/dbConnection.js";
 import { hashPassword, comparePassword } from "../modules/encrypt_decrypt.js";
+import mail from "../modules/mail.js";
 let _db = null;
 const router = express.Router();
 
@@ -10,8 +11,6 @@ connection.connectToDb((err) => {
 });
 
 router.post("/registration", async (req, res) => {
-  //console.log("registration route called", req.body.email, req.body.password);
-  //console.log(req.body);
   let result = await _db
     .collection("users")
     .find({ email: req.body.email })
@@ -35,10 +34,10 @@ router.post("/registration", async (req, res) => {
         });
       res.status(200).json({ successful: 100 });
     } else {
-      res.send("invalid");
+      res.send(false);
     }
   } else {
-    res.send("invalid");
+    res.send(false);
   }
 });
 
@@ -59,11 +58,16 @@ router.get("/display_all_emails", async (req, res) => {
 });
 
 router.post("/forgot_password", async (req, res) => {
-  //console.log("forgot password route called");
+  console.log("forgot password route called");
   var myquery = { username: req.body.username, email: req.body.email };
-  req.body.password = await hashPassword(req.body.password);
+  var password = Math.random().toString(36).substring(2, 7);
+  console.log(password);
+  var pass = password;
+  var text = ` New password is : ${pass}`;
+  var subject = "Updating password for User Management:";
+  password = await hashPassword(password);
   const update = {
-    password: req.body.password,
+    password: password,
   };
   var newvalues = {
     $set: update,
@@ -77,14 +81,15 @@ router.post("/forgot_password", async (req, res) => {
     .toArray();
 
   if (result.length == 0) {
-    res.send("username or email invald");
+    res.send(false);
   } else {
     await _db
       .collection("users")
       .updateOne(myquery, newvalues, function (err, res) {
         if (err) throw err;
       });
-    res.send("successful");
+    mail(req.body.email, text, subject);
+    res.send(true);
   }
 });
 

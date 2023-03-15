@@ -192,6 +192,28 @@ app.get(
 );
 
 app.get(
+  "/add_user/:username/:user/:session_id/",
+  async (req, res, next) => {
+    let user = req.params["username"];
+    let deletedby = req.params["user"];
+    req.username = deletedby;
+    req.session_id = req.params["session_id"];
+    var myquery = { username: user };
+    var newvalues = {
+      $set: { deleted: "false", deletedby: deletedby },
+    };
+    await _db
+      .collection("users")
+      .updateOne(myquery, newvalues, function (err, res) {
+        if (err) throw err;
+      });
+    req.data = "successful";
+    next();
+  },
+  check_session
+);
+
+app.get(
   "/display_active_users/:username/:session_id/",
   async (req, res, next) => {
     req.username = req.params["username"];
