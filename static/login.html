@@ -268,7 +268,7 @@
         document.getElementById("host").value = params.host;
         document.getElementById("protocol").value = params.protocol
           ? params.protocol
-          : "http";
+          : "http:";
       })();
       function myFunction() {
         var x = document.getElementById("password");
@@ -308,7 +308,7 @@
 
               window.location.href =
                 res.data.protocol +
-                "://" +
+                "//" +
                 res.data.host +
                 "/" +
                 res.data.from +
