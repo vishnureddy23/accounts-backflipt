@@ -16,9 +16,11 @@ export default function send_mail(pemail, text, subject) {
   };
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      //console.log(error);
+      console.log(error);
+      return false;
     } else {
-      //console.log("email sent successfully");
+      console.log("email sent successfully");
+      return false;
     }
   });
 }
