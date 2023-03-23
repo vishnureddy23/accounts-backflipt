@@ -118,7 +118,6 @@ app.post(
   "/update_profile/:username/:session_id/",
   check_session,
   async (req, res, next) => {
-    console.log(req.body.upload_image, "upload_image");
     var username = req.params["username"];
     var temp = req.body;
     var myquery = { username: username };

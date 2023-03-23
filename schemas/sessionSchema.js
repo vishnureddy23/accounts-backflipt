@@ -25,9 +25,8 @@ const SessionScheme = new Schema(
     starttime: {
       type: Date,
     },
-    createdAt: { type: Date, expires: 10 },
   },
-  { collection: "sessions", timestamps: true, expires: 10 }
+  { collection: "sessions", timestamps: true }
 );
 
 export default new mongoose.model("SessionScheme", SessionScheme);
