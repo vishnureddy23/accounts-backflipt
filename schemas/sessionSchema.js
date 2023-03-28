@@ -25,10 +25,6 @@ const SessionScheme = new Schema(
     starttime: {
       type: Date,
     },
-<<<<<<< Updated upstream
-=======
-    createdAt: { type: Date, expires: 86400, default: Date.now },
->>>>>>> Stashed changes
   },
   { collection: "sessions", timestamps: true }
 );
