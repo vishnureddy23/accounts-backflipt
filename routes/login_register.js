@@ -94,10 +94,11 @@ router.post("/forgot_password", async (req, res) => {
 });
 
 router.get("/update_for_all", async (req, res) => {
-  var myquery = {};
+  const user = "";
+  var myquery = { username: user };
   const update = {
-    deleted: "false",
-    active: "true",
+    role: "GUEST",
+    team: "GUEST",
   };
   var newvalues = {
     $set: update,

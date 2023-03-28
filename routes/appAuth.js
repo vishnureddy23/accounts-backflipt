@@ -88,7 +88,7 @@ app.post("/checkAuth", (req, res) => {
     { new: true },
     (err, doc) => {
       if (doc) {
-        res.send([true, doc.admin]);
+        res.send({ sessionExist: true, admin: doc.admin });
       } else {
         res.send(false);
       }

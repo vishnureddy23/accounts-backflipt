@@ -109,7 +109,9 @@ app.post(
     req.body.username = "";
     req.body.deleted = "false";
     req.body.admin = "false";
-    let result = _db.collection("users").insertOne(req.body);
+    req.body.role = "GUEST";
+    req.body.team = "GUEST";
+    let result = await _db.collection("users").insertOne(req.body);
     res.send(true);
   }
 );
