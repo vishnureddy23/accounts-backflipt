@@ -23,6 +23,9 @@ const User = new Schema(
     role: {
       type: String,
     },
+    team: {
+      type: String,
+    },
   },
   { collection: "users", timestamps: true }
 );

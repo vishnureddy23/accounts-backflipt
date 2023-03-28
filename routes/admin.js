@@ -35,11 +35,6 @@ router.get("/users_data/:user/", async (req, res) => {
 });
 
 router.get("/change_team/:username/:team", async (req, res) => {
-  // console.log(
-  //   "change_team route called",
-  //   req.params["username"],
-  //   req.params["team"]
-  // );
   var username = req.params["username"];
   var myquery = { username: username };
   var newvalues = {
@@ -54,11 +49,6 @@ router.get("/change_team/:username/:team", async (req, res) => {
 });
 
 router.get("/change_admin/:username/:admin/", async (req, res) => {
-  //console.log(
-  //   "change_admin route called",
-  //   req.params["username"],
-  //   req.params["admin"]
-  // );
   var username = req.params["username"];
   var myquery = { username: username };
   var newvalues = {
@@ -73,12 +63,10 @@ router.get("/change_admin/:username/:admin/", async (req, res) => {
 });
 
 router.get("/display_deleted_users", async (req, res) => {
-  //console.log("display_deleted_users route called");
   let result = await _db
     .collection("users")
     .find({ deleted: "true" })
     .toArray();
-  //console.log(result);
   res.send(result);
 });
 

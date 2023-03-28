@@ -47,7 +47,6 @@ router.get("/roles", async (req, res) => {
 });
 
 router.get("/display_all_emails", async (req, res) => {
-  //console.log("displaying all emails");
   let result = await _db.collection("users").find({}).toArray();
   var active;
   active = result.map((row) => {
@@ -58,7 +57,7 @@ router.get("/display_all_emails", async (req, res) => {
 });
 
 router.post("/forgot_password", async (req, res) => {
-  console.log("forgot password route called");
+  console.log("route called");
   var myquery = { username: req.body.username, email: req.body.email };
   var password = Math.random().toString(36).substring(2, 7);
   console.log(password);
@@ -121,7 +120,6 @@ router.get("/display_all_users", async (req, res) => {
 
 router.get("/users/:username/", async (req, res) => {
   let username = req.params["username"];
-  //console.log("/users/username called", username);
   let result = await _db
     .collection("users")
     .find({ username: username })

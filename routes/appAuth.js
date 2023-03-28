@@ -54,6 +54,7 @@ app.post("/user_login", async (req, res) => {
             let temp = {
               session_id: req.sessionID,
               username: req.body.username,
+              team: doc.team,
               role: doc.role,
               admin: doc.admin,
               active: "true",
@@ -61,14 +62,15 @@ app.post("/user_login", async (req, res) => {
             };
             const newSession = new SessionScheme(temp);
             newSession.save((err, newSes) => {
-              if (!err)
+              if (!err) {
+                console.log(temp);
                 res.status(200).send({
                   ...temp,
                   from: req.body.from ? req.body.from : "accounts",
                   host: req.body.host,
                   protocol: req.body.protocol,
                 });
-              else res.status(500).send(false);
+              } else res.status(500).send(false);
             });
           } else {
             res.send(false);
